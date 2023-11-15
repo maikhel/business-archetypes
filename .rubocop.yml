@@ -9,3 +9,5 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - 'config/environments/*'
+    - 'spec/models/*'
+    - 'db/schema.rb'

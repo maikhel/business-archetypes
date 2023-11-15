@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,60 +12,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_15_171103) do
+ActiveRecord::Schema[7.1].define(version: 20_231_115_171_103) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "people", force: :cascade do |t|
-    t.string "name"
-    t.string "first_name"
-    t.string "last_name"
-    t.date "date_of_birth"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'people', force: :cascade do |t|
+    t.string 'name'
+    t.string 'first_name'
+    t.string 'last_name'
+    t.date 'date_of_birth'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string "name"
-    t.date "start_at"
-    t.date "end_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'projects', force: :cascade do |t|
+    t.string 'name'
+    t.date 'start_at'
+    t.date 'end_at'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "role_in_projects", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "person_id"
-    t.bigint "role_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["person_id"], name: "index_role_in_projects_on_person_id"
-    t.index ["project_id"], name: "index_role_in_projects_on_project_id"
-    t.index ["role_id"], name: "index_role_in_projects_on_role_id"
+  create_table 'role_in_projects', force: :cascade do |t|
+    t.bigint 'project_id'
+    t.bigint 'person_id'
+    t.bigint 'role_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['person_id'], name: 'index_role_in_projects_on_person_id'
+    t.index ['project_id'], name: 'index_role_in_projects_on_project_id'
+    t.index ['role_id'], name: 'index_role_in_projects_on_role_id'
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'roles', force: :cascade do |t|
+    t.string 'name'
+    t.string 'description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "supervisions", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "supervisor_id"
-    t.bigint "subordinate_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_supervisions_on_project_id"
-    t.index ["subordinate_id"], name: "index_supervisions_on_subordinate_id"
-    t.index ["supervisor_id"], name: "index_supervisions_on_supervisor_id"
+  create_table 'supervisions', force: :cascade do |t|
+    t.bigint 'project_id'
+    t.bigint 'supervisor_id'
+    t.bigint 'subordinate_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['project_id'], name: 'index_supervisions_on_project_id'
+    t.index ['subordinate_id'], name: 'index_supervisions_on_subordinate_id'
+    t.index ['supervisor_id'], name: 'index_supervisions_on_supervisor_id'
   end
 
-  add_foreign_key "role_in_projects", "people"
-  add_foreign_key "role_in_projects", "projects"
-  add_foreign_key "role_in_projects", "roles"
-  add_foreign_key "supervisions", "people", column: "subordinate_id"
-  add_foreign_key "supervisions", "people", column: "supervisor_id"
-  add_foreign_key "supervisions", "projects"
+  add_foreign_key 'role_in_projects', 'people'
+  add_foreign_key 'role_in_projects', 'projects'
+  add_foreign_key 'role_in_projects', 'roles'
+  add_foreign_key 'supervisions', 'people', column: 'subordinate_id'
+  add_foreign_key 'supervisions', 'people', column: 'supervisor_id'
+  add_foreign_key 'supervisions', 'projects'
 end
