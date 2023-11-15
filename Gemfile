@@ -45,6 +45,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rails-erd'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
