@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_15_170439) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_15_170639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_170439) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "role_in_projects", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "person_id"
+    t.bigint "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_role_in_projects_on_person_id"
+    t.index ["project_id"], name: "index_role_in_projects_on_project_id"
+    t.index ["role_id"], name: "index_role_in_projects_on_role_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -38,4 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_170439) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "role_in_projects", "people"
+  add_foreign_key "role_in_projects", "projects"
+  add_foreign_key "role_in_projects", "roles"
 end

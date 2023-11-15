@@ -1,0 +1,2 @@
+class RoleInProject < ApplicationRecord
+end
