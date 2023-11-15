@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
-  has_many :role_in_projects
-  has_many :members, through: :role_in_projects, source: :person
-  has_many :roles, through: :role_in_projects, source: :role
+  has_many :roles, as: :party
+
+  has_many :client_relationships, through: :roles, source: :client_relationships, class_name: 'PartyRelationship'
+  has_many :supplier_relationships, through: :roles, source: :supplier_relationships, class_name: 'PartyRelationship'
 end
