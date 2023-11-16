@@ -44,17 +44,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "role_in_projects", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "person_id"
-    t.bigint "role_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["person_id"], name: "index_role_in_projects_on_person_id"
-    t.index ["project_id"], name: "index_role_in_projects_on_project_id"
-    t.index ["role_id"], name: "index_role_in_projects_on_role_id"
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -65,21 +54,4 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
     t.index ["party_type", "party_id"], name: "index_roles_on_party"
   end
 
-  create_table "supervisions", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "supervisor_id"
-    t.bigint "subordinate_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_supervisions_on_project_id"
-    t.index ["subordinate_id"], name: "index_supervisions_on_subordinate_id"
-    t.index ["supervisor_id"], name: "index_supervisions_on_supervisor_id"
-  end
-
-  add_foreign_key "role_in_projects", "people"
-  add_foreign_key "role_in_projects", "projects"
-  add_foreign_key "role_in_projects", "roles"
-  add_foreign_key "supervisions", "people", column: "subordinate_id"
-  add_foreign_key "supervisions", "people", column: "supervisor_id"
-  add_foreign_key "supervisions", "projects"
 end
