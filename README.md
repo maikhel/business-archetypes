@@ -1,24 +1,21 @@
-# README
+# Archetype patterns
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An example Rails application to present the usage of business archetype patterns.
+Based on the book:
+[Enterprise Patterns and MDA: Building Better Software with Archetype Patterns and UML](https://www.amazon.pl/Enterprise-Patterns-MDA-Building-Archetype/dp/032111230X)
 
-Things you may want to cover:
 
-* Ruby version
+## Installation
 
-* System dependencies
+#### System dependencies:
+- PostgreSQL
+- ruby, 3.1.0
 
-* Configuration
+#### Setup
+- clone repository
+- install gems with `bundle install`
+- create database and run migrations with `rails db:setup`
 
-* Database creation
+### Party, Party Roles and Party Relationships
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+See examples in the app/models and tests for them.
