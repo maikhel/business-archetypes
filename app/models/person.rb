@@ -1,12 +1,29 @@
 # frozen_string_literal: true
 
 class Person < ApplicationRecord
-  has_many :role_in_projects
-  has_many :projects, through: :role_in_projects
-  has_many :roles, through: :role_in_projects
+  has_many :roles, as: :party
 
-  has_many :supervisors_relationships, foreign_key: :subordinate_id, class_name: 'Supervision'
-  has_many :supervisors, through: :supervisors_relationships, source: :supervisor
-  has_many :subordinates_relationships, foreign_key: :supervisor_id, class_name: 'Supervision'
-  has_many :subordinates, through: :subordinates_relationships, source: :subordinate
+  has_many :client_relationships, through: :roles, source: :client_relationships, class_name: 'PartyRelationship'
+  has_many :supplier_relationships, through: :roles, source: :supplier_relationships, class_name: 'PartyRelationship'
+
+  def projects
+    Project.joins(roles: [:client_relationships])
+           .where(
+             client_relationships: { id: supplier_relationships.where(name: 'member_of_project') }
+           )
+  end
+
+  def supervisors
+    Person.joins(roles: [:supplier_relationships])
+          .where(
+            supplier_relationships: { id: client_relationships.where(name: 'reports_to') }
+          )
+  end
+
+  def subordinates
+    Person.joins(roles: [:client_relationships])
+          .where(
+            client_relationships: { id: supplier_relationships.where(name: 'reports_to') }
+          )
+  end
 end
