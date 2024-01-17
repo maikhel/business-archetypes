@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_17_210313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "role_types", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -51,7 +58,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
     t.datetime "updated_at", null: false
     t.string "party_type"
     t.bigint "party_id"
+    t.bigint "role_type_id"
     t.index ["party_type", "party_id"], name: "index_roles_on_party"
+    t.index ["role_type_id"], name: "index_roles_on_role_type_id"
   end
 
 end
