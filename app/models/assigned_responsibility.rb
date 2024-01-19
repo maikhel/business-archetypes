@@ -1,0 +1,2 @@
+class AssignedResponsibility < ApplicationRecord
+end
