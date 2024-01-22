@@ -19,9 +19,9 @@ RSpec.describe CreateSupervision do
       supervisor_role_type.responsibilities << scheduling_meetings_reponsibility
       supervisor_role_type.responsibilities << mentoring_reponsibility
 
-      service = described_class.new(subordinate: bob, supervisor: john)
-
-      expect(service.call).to eq true
+      expect(
+        described_class.call(subordinate: bob, supervisor: john)
+      ).to eq true
 
       expect(bob.supervisors).to match_array([john])
       expect(
