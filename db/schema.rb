@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_18_185930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assigned_responsibilities", force: :cascade do |t|
+    t.bigint "responsibility_id"
+    t.bigint "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["responsibility_id"], name: "index_assigned_responsibilities_on_responsibility_id"
+    t.index ["role_id"], name: "index_assigned_responsibilities_on_role_id"
+  end
 
   create_table "party_relationships", force: :cascade do |t|
     t.string "name"
@@ -44,6 +53,29 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "responsibilities", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "role_type_responsibilities", force: :cascade do |t|
+    t.bigint "role_type_id"
+    t.bigint "responsibility_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["responsibility_id"], name: "index_role_type_responsibilities_on_responsibility_id"
+    t.index ["role_type_id"], name: "index_role_type_responsibilities_on_role_type_id"
+  end
+
+  create_table "role_types", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -51,7 +83,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_15_195415) do
     t.datetime "updated_at", null: false
     t.string "party_type"
     t.bigint "party_id"
+    t.bigint "role_type_id"
     t.index ["party_type", "party_id"], name: "index_roles_on_party"
+    t.index ["role_type_id"], name: "index_roles_on_role_type_id"
   end
 
 end
